@@ -1,0 +1,51 @@
+-- Table definition --
+
+CREATE TABLE Product (
+    ID int NOT NULL,
+    Name varchar(30) NOT NULL,
+	Code int,
+    Description text,
+    PRIMARY KEY (ID)
+); 
+
+CREATE TABLE Category (
+    ID int NOT NULL,
+    Name varchar(30) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE ProductCatagory (
+	ProductID int NOT NULL,
+	CategoryID int NOT NULL,
+	PRIMARY KEY (ProductID, CategoryID)
+);
+
+-- Test data --
+
+INSERT INTO Product VALUES (1, 'apple', 123, 'red');
+INSERT INTO Product VALUES (2, 'banana', 124, Null);
+INSERT INTO Product VALUES (3, 'potatoes', 623, Null);
+INSERT INTO Product VALUES (4, 'cucumber', 823, Null);
+INSERT INTO Product VALUES (5, 'watermelon', 993, Null);
+INSERT INTO Product VALUES (6, 'lemon', 789, Null);
+
+INSERT INTO Category VALUES (1, 'vegetables');
+INSERT INTO Category VALUES (2, 'fruits');
+INSERT INTO Category VALUES (3, 'milk');
+INSERT INTO Category VALUES (4, 'perishable');
+INSERT INTO Category VALUES (5, 'new');
+
+
+INSERT INTO ProductCatagory VALUES (3, 1);
+INSERT INTO ProductCatagory VALUES (4, 1);
+INSERT INTO ProductCatagory VALUES (1, 2);
+INSERT INTO ProductCatagory VALUES (2, 2);
+INSERT INTO ProductCatagory VALUES (4, 4);
+INSERT INTO ProductCatagory VALUES (2, 4);
+INSERT INTO ProductCatagory VALUES (2, 5);
+
+-- Query --
+
+SELECT p.Name, c.Name FROM 
+Product p left outer join ProductCatagory pc on p.ID == pc.ProductID
+left outer join Category c on pc.CategoryID == c.ID;
